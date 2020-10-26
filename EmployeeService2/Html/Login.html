@@ -61,16 +61,18 @@
                 $.ajax({
                     url: '/token',
                     method: 'POST',
-                    contentType:'application/json',
+                    contentType: 'application/json',
                     data: {
                         username: $('#txtUsername').val(),
                         password: $('#txtPassword').val(),
-                        grant_type:'password'
+                        grant_type: 'password'
                     },
                     success: function (response) {
                         //if you do not want to loose the access token when the browser is closed
                         //store the access token in browser local storage instead of session storage
                         localStorage.setItem('accessToken', response.access_token);
+                        //store username
+                        localStorage.setItem('userName', response.userName);
                         //sessionStorage.setItem('accessToken', response.access_token);
                         window.location.href = "Data.html";
                     },
