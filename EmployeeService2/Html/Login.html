@@ -35,7 +35,24 @@
                             <input id="btnLogin" class="btn btn-success"
                                    type="button" value="Login" />
                         </td>
-                    </tr>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr class="success">
+                    <th >
+                        Social Logins 
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <td >
+                        <input id="btnGoogleLogin" class="btn btn-success"
+                               type="button" value="Login with Google" />
+                    </td> 
+                </tr>
                 </tbody>
             </table>
             <!--Bootstrap alert to display any validation errors-->
@@ -47,9 +64,14 @@
     </div>
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
-
+    <script src="../Scripts/GoogleAuthentication.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            getAccessToken();
+
+            $('#btnGoogleLogin').click(function() {
+                window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44340%2FHtml%2FLogin.html&state=hPiXIKNPFzSJPqYgXzKRdKocBkwCJZNDT2_qmAjBDlg1";
+            });
 
             //Close the bootstrap alert
             $('#linkClose').click(function () {
