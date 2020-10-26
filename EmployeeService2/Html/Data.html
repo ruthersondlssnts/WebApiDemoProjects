@@ -10,6 +10,8 @@
         <div class="well">
             <input id="btnLoadEmployees" class="btn btn-success"
                    type="button" value="Load Employees" />
+            <input id="btnLogoff" class="btn btn-success pull-right"
+                   type="button" value="Log Off" />
         </div>
         <div id="divData" class="well hidden">
             <table class="table table-bordered" id="tblData">
@@ -55,12 +57,13 @@
         </div>
     </div>
 
-<script src="../Scripts/jquery-3.4.1.min.js"></script>
-<script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            if (sessionStorage.getItem('accessToken') == null) {
+            //if (sessionStorage.getItem('accessToken') == null) {
+            if (localStorage.getItem('accessToken') == null) {
                 window.location.href = "Login.html";
             }
 
@@ -78,7 +81,8 @@
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer '
-                            + sessionStorage.getItem("accessToken")
+                            + localStorage.getItem("accessToken")
+                        // + sessionStorage.getItem("accessToken")
                     },
                     success: function (data) {
                         $('#divData').removeClass('hidden');
@@ -104,6 +108,12 @@
                         }
                     }
                 });
+            });
+
+            $("#btnLogoff").click(function () {
+                //sessionStorage.removeItem('accessToken');
+                localStorage.removeItem('accessToken');
+                window.location.href = "Login.html";
             });
         });
     </script>

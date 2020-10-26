@@ -68,7 +68,10 @@
                         grant_type:'password'
                     },
                     success: function (response) {
-                        sessionStorage.setItem('accessToken', response.access_token);
+                        //if you do not want to loose the access token when the browser is closed
+                        //store the access token in browser local storage instead of session storage
+                        localStorage.setItem('accessToken', response.access_token);
+                        //sessionStorage.setItem('accessToken', response.access_token);
                         window.location.href = "Data.html";
                     },
                     error: function (jqXhr) {
