@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using WebAPI.Custom;
 
 namespace WebAPI
 {
@@ -20,11 +22,11 @@ namespace WebAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
             //config.Routes.MapHttpRoute(
             //    name: "Version1",
@@ -37,6 +39,13 @@ namespace WebAPI
             //    routeTemplate: "api/v2/students/{id}",
             //    defaults: new { id = RouteParameter.Optional, controller = "StudentsV2" }
             //);
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultRoute",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Services.Replace(typeof(IHttpControllerSelector), new CustomControllerSelector(config));
         }
     }
 }
