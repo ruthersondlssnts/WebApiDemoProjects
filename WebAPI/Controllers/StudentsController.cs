@@ -18,6 +18,25 @@ namespace WebAPI.Controllers
             new Student(){Id = 3,Name="John"}
         };
 
+
+        public IHttpActionResult Get()
+        {
+            return Ok(students);
+        }
+
+        public IHttpActionResult Get(int id)
+        {
+            var stud = students.FirstOrDefault(s => s.Id == id);
+            if (stud == null)
+            {
+                //return NotFound();
+                return Content(HttpStatusCode.NotFound, "Student not found");
+            }
+
+            return Ok(stud);
+        }
+
+
         [Route("~/api/teachers")] //override route prefix
         public IEnumerable<Teacher> GetTeachers()
         {
@@ -31,24 +50,24 @@ namespace WebAPI.Controllers
         }
 
 
-        //[Route("api/students")]
-        public IEnumerable<Student> Get()
-        {
-            return students;
-        }
+        ////[Route("api/students")]
+        //public IEnumerable<Student> Get()
+        //{
+        //    return students;
+        //}
 
-        //[Route("api/students/{id}")]
-        [Route("{id:int:range(1,100)}", Name = "GetStudentById")]
-        public Student Get(int id)
-        {
-            return students.FirstOrDefault(s => s.Id == id);
-        }
+        ////[Route("api/students/{id}")]
+        //[Route("{id:int:range(1,100)}", Name = "GetStudentById")]
+        //public Student Get(int id)
+        //{
+        //    return students.FirstOrDefault(s => s.Id == id);
+        //}
 
-        [Route("{name:alpha}")]
-        public Student Get(string name)
-        {
-            return students.FirstOrDefault(s => s.Name.ToLower() == name.ToLower());
-        }
+        //[Route("{name:alpha}")]
+        //public Student Get(string name)
+        //{
+        //    return students.FirstOrDefault(s => s.Name.ToLower() == name.ToLower());
+        //}
 
         // [Route("api/students/{id}/courses")]
         [Route("{id}/courses")]

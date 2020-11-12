@@ -110,31 +110,31 @@ namespace EmployeeService2.Controllers
         //    }
         //}
 
-        //public HttpResponseMessage Put([FromBody] int id, [FromUri] Employee employee)
-        //{
-        //    try
-        //    {
-        //        using (EmployeeDbContext context = new EmployeeDbContext())
-        //        {
-        //            var entity = context.Employees.FirstOrDefault(e => e.Id == id);
-        //            if (entity != null)
-        //            {
-        //                entity.FirstName = employee.FirstName;
-        //                entity.LastName = employee.LastName;
-        //                entity.Gender = employee.Gender;
-        //                entity.Salary = employee.Salary;
+        public HttpResponseMessage Put([FromBody] int id, [FromUri] Employee employee)
+        {
+            try
+            {
+                using (EmployeeDbContext context = new EmployeeDbContext())
+                {
+                    var entity = context.Employees.FirstOrDefault(e => e.Id == id);
+                    if (entity != null)
+                    {
+                        entity.FirstName = employee.FirstName;
+                        entity.LastName = employee.LastName;
+                        entity.Gender = employee.Gender;
+                        entity.Salary = employee.Salary;
 
-        //                context.SaveChanges();
-        //                return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //            }
+                        context.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, entity);
+                    }
 
-        //            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with Id = " + id.ToString() + " not found to update");
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
-        //    }
-        //}
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with Id = " + id.ToString() + " not found to update");
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+            }
+        }
     }
 }
