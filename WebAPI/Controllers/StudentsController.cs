@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         //[Route("api/students/{id}")]
-        [Route("{id:int:range(1,3)}")]
+        [Route("{id:int:range(1,100)}", Name = "GetStudentById")]
         public Student Get(int id)
         {
             return students.FirstOrDefault(s => s.Id == id);
@@ -61,5 +61,15 @@ namespace WebAPI.Controllers
             else
                 return new List<string>() { "Bootstrap", "Jquery", "AngularJs" };
         }
+
+        public HttpResponseMessage Post(Student student)
+        {
+            students.Add(student);
+            var response = Request.CreateResponse(HttpStatusCode.Created);
+            response.Headers.Location = new Uri(Url.Link("GetStudentById", new { id = student.Id }));
+            return response;
+        }
     }
+
+
 }
