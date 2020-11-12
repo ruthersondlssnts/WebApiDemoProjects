@@ -38,10 +38,16 @@ namespace WebAPI.Controllers
         }
 
         //[Route("api/students/{id}")]
-        [Route("{id}")]
+        [Route("{id:int:range(1,3)}")]
         public Student Get(int id)
         {
             return students.FirstOrDefault(s => s.Id == id);
+        }
+
+        [Route("{name:alpha}")]
+        public Student Get(string name)
+        {
+            return students.FirstOrDefault(s => s.Name.ToLower() == name.ToLower());
         }
 
         // [Route("api/students/{id}/courses")]
