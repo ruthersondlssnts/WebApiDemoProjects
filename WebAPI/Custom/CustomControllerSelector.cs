@@ -25,20 +25,31 @@ namespace WebAPI.Custom
             var controllerName = routeData.Values["controller"].ToString();
 
             string versionNumber = "1";
+            //query string paramater
             //var versionQueryString = HttpUtility.ParseQueryString(request.RequestUri.Query);
             //if (versionQueryString["v"] != null)
             //{
             //    versionNumber = versionQueryString["v"];
             //}
-            string customHeader = "Student-Version";
 
-            if (request.Headers.Contains(customHeader))
+            //customheader
+            //string customHeader = "Student-Version";
+
+            //if (request.Headers.Contains(customHeader))
+            //{
+            //    versionNumber = request.Headers.GetValues(customHeader).FirstOrDefault();
+            //    if (versionNumber.Contains(","))
+            //    {
+            //        versionNumber = versionNumber.Substring(0, versionNumber.IndexOf(",", StringComparison.Ordinal));
+            //    }
+            //}
+
+            var acceptHeader = request.Headers.Accept
+                .Where(a => a.Parameters.Count(p => p.Name.ToLower() == "version") > 0);
+
+            if (acceptHeader.Any())
             {
-                versionNumber = request.Headers.GetValues(customHeader).FirstOrDefault();
-                if (versionNumber.Contains(","))
-                {
-                    versionNumber = versionNumber.Substring(0, versionNumber.IndexOf(",", StringComparison.Ordinal));
-                }
+                versionNumber = acceptHeader.First().Parameters.First(p => p.Name.ToLower() == "version").Value;
             }
 
             if (versionNumber == "1")
