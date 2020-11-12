@@ -40,18 +40,24 @@
             </table>
             <table class="table table-bordered">
                 <thead>
-                <tr class="success">
-                    <th >
-                        Social Logins 
-                    </th>
-                </tr>
+                    <tr class="success">
+                        <th>
+                            Social Logins
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr >
-                    <td >
+                <tr>
+                    <td>
                         <input id="btnGoogleLogin" class="btn btn-success"
                                type="button" value="Login with Google" />
-                    </td> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="btnFacebookLogin" class="btn btn-success"
+                               type="button" value="Login with Facebook" />
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -71,6 +77,10 @@
 
             $('#btnGoogleLogin').click(function() {
                 window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44340%2FHtml%2FLogin.html&state=hPiXIKNPFzSJPqYgXzKRdKocBkwCJZNDT2_qmAjBDlg1";
+            });
+
+            $('#btnFacebookLogin').click(function() {
+                window.location.href = "/api/Account/ExternalLogin?provider=Facebook&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44340%2FHtml%2FLogin.html&state=hPiXIKNPFzSJPqYgXzKRdKocBkwCJZNDT2_qmAjBDlg1";
             });
 
             //Close the bootstrap alert

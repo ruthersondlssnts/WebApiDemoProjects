@@ -3,7 +3,7 @@
 function getAccessToken() {
 
 
-    var signupExternalUser = function (token) {
+    var signupExternalUser = function (token, provider) {
         //function registers the user with our application
         $.ajax({
             url: '/api/Account/RegisterExternal',
@@ -13,7 +13,8 @@ function getAccessToken() {
                 'Authorization': 'Bearer ' + token
             },
             success: function () {
-                window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44340%2FHtml%2FLogin.html&state=hPiXIKNPFzSJPqYgXzKRdKocBkwCJZNDT2_qmAjBDlg1";
+                alert(provider);
+                window.location.href = "/api/Account/ExternalLogin?provider=" + provider +"&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44340%2FHtml%2FLogin.html&state=hPiXIKNPFzSJPqYgXzKRdKocBkwCJZNDT2_qmAjBDlg1";
             }
         });
     };
@@ -35,7 +36,7 @@ function getAccessToken() {
                     localStorage.setItem('userName', response.Email);
                     window.location.href = "Data.html";
                 } else {
-                    signupExternalUser(token);
+                    signupExternalUser(token, response.LoginProvider);
                 }
             }
         });
